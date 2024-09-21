@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-
+import AppContextProvider from './../context/AppContext'
 export default function RootLayout() {
    useFonts({
       'outfit': require('../assets/fonts/Outfit-Regular.ttf'),
@@ -10,11 +10,16 @@ export default function RootLayout() {
 
 
    return (
-      <Stack>
-         <Stack.Screen name="index" />
-         <Stack.Screen name="login/index" options={{
-            headerShown:false,
-         }}/>
-      </Stack>
+      <AppContextProvider>
+         <Stack>
+            <Stack.Screen name="(tabs)" options={{
+               headerShown: false
+            }} />
+
+            <Stack.Screen name="index" options={{
+               headerShown: false
+            }} />
+         </Stack>
+      </AppContextProvider>
    );
 }

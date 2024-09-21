@@ -2,9 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import SildeShow from '../../components/SlideShow';
+import { useRouter } from 'expo-router';
 
 
 const WelcomePage = () => {
+   const router = useRouter();
+
    return (
       <View style={styles.container}>
          <ImageBackground
@@ -27,7 +30,9 @@ const WelcomePage = () => {
                <Text style={styles.secondHeading}>What You Can Do Here</Text>
                <SildeShow></SildeShow>
                </View>
-               <Pressable style={{
+               <Pressable 
+                onPress={()=>router.push('/home')}
+               style={{
                   padding: 14,
                   width: '90%',
                   backgroundColor: "#94D8DB",
