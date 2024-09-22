@@ -4,9 +4,10 @@ export const AppContext = createContext(null);
 
 const AppContextProvider = (props) => {
    const [isSearchFocused, setIsSearchFocused] = useState(false);
+   const categoryFilter = ['Agriculture','Domestic Use','Industrial use','Case Studies','More']
 
    const contextValue = {
-     isSearchFocused,setIsSearchFocused
+     isSearchFocused,setIsSearchFocused,categoryFilter,
 
    }
 

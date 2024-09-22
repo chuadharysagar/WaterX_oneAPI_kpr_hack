@@ -1,36 +1,34 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-
 import React from 'react'
 import Colors from '../../constants/Colors';
 
 const Header = () => {
-   return (
-      <View style={styles.headerContainer}>
-         <TextInput
-            placeholder='Search here'
-            style={styles.input}
-            onChange={() => setIsSearchFocused(true)}
-         />
-         <View style={styles.profileContainer}>
-            <TouchableOpacity
-               style={styles.addbtn}
-               accessibilityLabel="Create a new post here">
-               <AntDesign name="pluscircleo" size={20} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity
-               style={styles.addbtn}
-               accessibilityLabel="Create a new post here">
-               <FontAwesome6 name="bell" size={20} color="black" />
-            </TouchableOpacity>
-            <Image source={require('./../../assets/images/profile.jpg')}
-               style={styles.profilePicture}
+   return <>
+         <View style={styles.headerContainer}>
+            <TextInput
+               placeholder='Search here'
+               style={styles.input}
+               onChange={() => setIsSearchFocused(true)}
             />
+            <View style={styles.profileContainer}>
+               <TouchableOpacity
+                  style={styles.addbtn}
+                  accessibilityLabel="Create a new post here">
+                  <AntDesign name="pluscircleo" size={20} color="black" />
+               </TouchableOpacity>
+               <TouchableOpacity
+                  style={styles.addbtn}
+                  accessibilityLabel="Create a new post here">
+                  <FontAwesome6 name="bell" size={20} color="black" />
+               </TouchableOpacity>
+               <Image source={require('./../../assets/images/profile.jpg')}
+                  style={styles.profilePicture}
+               />
+            </View>
          </View>
-      </View>
-
-   )
+   </>
 }
 
 export default Header
@@ -51,7 +49,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       paddingHorizontal: 8,
       width: '50%',
-      borderRadius: 8
+      borderRadius: 8,
+      fontFamily:'outfit',
    },
    profileContainer: {
       display: 'flex',
