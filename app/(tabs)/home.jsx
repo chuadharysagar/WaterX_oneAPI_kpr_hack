@@ -9,21 +9,15 @@ const home = () => {
    return (
       <View>
          <View style={{
-            height:130,
+            height: 130,
             backgroundColor: '#d4d6d6',
-            display:'flex',
-            flexDirection:'column',
-            justifyContent:'space-between'
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
          }}><Header />
-         <Categories></Categories>
+            <Categories></Categories>
          </View>
-         <View style={{
-            backgroundColor:Colors.GRAY,
-            height:'83%',
-            width:'100%'
-         }}>
          <PostList></PostList>
-         </View>
       </View>
    )
 }

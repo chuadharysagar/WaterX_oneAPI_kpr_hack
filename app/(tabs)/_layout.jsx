@@ -49,7 +49,7 @@ const Tablayout = () => {
          }} />
          <Tabs.Screen name='community' options={{
             headerShown: false,
-            title: 'Home',
+            title: 'Community',
             tabBarIcon: ({ color }) => <MaterialIcons name="groups" size={24} color={color} />
          }} />
       </Tabs>
