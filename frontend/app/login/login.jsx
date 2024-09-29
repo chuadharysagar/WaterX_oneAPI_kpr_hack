@@ -1,10 +1,106 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Colors from './../../constants/Colors';
 
 const Login = () => {
+
+   const [formData, SetFormData] = useState({
+      name: '',
+      email: '',
+      region: '',
+      password: '',
+      confrimPass: '',
+   })
+
+   const [error, setError] = useState({
+      name: false,
+      email: false,
+      region: false,
+      password: false,
+      confrimPass: false,
+   })
+
+   const handleInputChange = (feild, value) => {
+      SetFormData({ ...formData, [feild]: value })
+   }
+
+   //email validator
+   const validateEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+   };
+
+
+   // password validator
+   const comparePassword = (password, confoPass) => {
+      return password === confoPass;
+   }
+
+   const validatePassword = (password) => {
+      return password.length >= 8;
+   }
+
+   const handleSubmit = () => {
+      let hasError = false;
+      let newError = {
+         name: false,
+         email: false,
+         region: false,
+         password: false,
+         confrimPass: false,
+      };
+
+      Object.keys(formData).forEach((feild) => {
+         if (formData[feild] === '') {
+            newError[feild] = true;
+            hasError = true;
+         } else {
+            newError[feild] = false;
+         }
+      })
+
+      if (formData.email === '') {
+         newError.email = " Email is Required";
+         hasError = true;
+      }
+      else if (!validateEmail(formData.email)) {
+         hasError = true;
+         newError.email = "Invalied Email";
+      } else {
+         newError.email = false;
+      }
+
+
+      if (formData.password === '') {
+         newError.password = "Password is required";
+         hasError = true;
+      } else if (!validatePassword(formData.password)) {
+         newError.password = "Pasword length must be 8";
+         hasError = true;
+      } else {
+         newError.password = false;
+      }
+
+      if (formData.confrimPass === '') {
+         newError.confrimPass = "Confirmation is required";
+         hasError = true;
+      } else if (!comparePassword(formData.password, formData.confrimPass)) {
+         newError.confrimPass = "Passwords do not match";
+         hasError = true;
+      } else {
+         newError.confrimPass = false;
+      }
+
+      setError(newError)
+
+      if (!hasError) {
+
+      }
+      setError(newError)
+   }
+
    const [isChecked, setIsChecked] = useState(false);
    const handleCheckBox = () => {
       setIsChecked(!isChecked)
@@ -12,57 +108,112 @@ const Login = () => {
 
    const [showLogin, SetShowLogin] = useState('Sign up')
 
+   // Reset error states whenever the login mode changes 
+   useEffect(() => {
+      setError({
+         name: false,
+         email: false,
+         region: false,
+         password: false,
+         confrimPass: false,
+      });
+
+      // Reset form data if necessary (optional)
+      SetFormData({
+         name: '',
+         email: '',
+         region: '',
+         password: '',
+         confrimPass: '',
+      });
+
+   }, [showLogin]);
+
 
    return (
-      <LinearGradient
-         colors={['#8BA9D1', '#3A7BB0', '#2D5E8A']}
-         style={styles.background}>
+      <KeyboardAvoidingView
+         style={{ flex: 1, justifyContent: 'center' }}
+         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
 
-         <View style={styles.container}>
-            <Text style={[styles.text, styles.heading]}>Welcome</Text>
+         <LinearGradient
+            colors={['#8BA9D1', '#3A7BB0', '#2D5E8A']}
+            style={styles.background}>
+            <View style={styles.container}>
+               <Text style={[styles.text, styles.heading]}>Welcome</Text>
 
-            {showLogin === 'Sign up' ? <TextInput
-               style={styles.input}
-               placeholder='Enter Your Full Name' /> : <></>}
+               {showLogin === 'Sign up' ? (
+                  <>
+                     {error.name && <Text style={styles.errorText}>Name is required</Text>}
+                     <TextInput
+                        onChangeText={(text) => handleInputChange('name', text)}
+                        onFocus={() => setError(prev => ({ ...prev, name: false }))}
+                        value={formData.name}
+                        style={styles.input}
+                        placeholder="Enter Your Full Name"
+                     />
+                  </>
+               ) : null}
 
-            <TextInput
-               style={styles.input}
-               placeholder='Enter Phone Or Email' />
+
+               {error.email && <Text style={styles.errorText}>{error.email}</Text>}
+               <TextInput
+                  onChangeText={(text) => handleInputChange('email', text)}
+                  onFocus={() => setError(prev => ({ ...prev, email: false }))}
+                  value={formData.email}
+                  style={styles.input}
+                  placeholder='Enter Phone Or Email' />
 
 
-            {showLogin === 'Sign up' ? <TextInput
-               style={styles.input}
-               placeholder='State or Region' /> : <></>}
+               {showLogin === 'Sign up' ? (<>
+                  {error.region && <Text style={styles.errorText}>Region is required</Text>}
+                  <TextInput onChangeText={(text) => handleInputChange('region', text)}
+                     onFocus={() => setError(prev => ({ ...prev, region: false }))}
+                     value={formData.region}
+                     style={styles.input}
+                     placeholder='State or Region' /></>) : <></>}
 
-            <TextInput
-               style={styles.input}
-               placeholder='Password'
-               secureTextEntry
-            />
-            {showLogin === 'Sign up' && <TextInput
-               style={styles.input}
-               placeholder='Confrim Password'
-               secureTextEntry
-            />}
-            <View style={styles.termsCondition}>
-               <View style={styles.checkboxContainer}>
-                  <TouchableOpacity onPress={handleCheckBox}>
-                     <View style={[styles.checkBox, isChecked && styles.active]}></View>
+
+               {error.password && <Text style={styles.errorText}>{error.password}</Text>}
+               <TextInput
+                  onChangeText={(text) => handleInputChange('password', text)}
+                  onFocus={() => setError(prev => ({ ...prev, password: false }))}
+                  value={formData.password}
+                  style={styles.input}
+                  placeholder='Password'
+                  secureTextEntry={true}
+               />
+
+               {showLogin === 'Sign up' ? (<>
+                  {error.confrimPass && <Text style={styles.errorText}>{error.confrimPass}</Text>}
+                  <TextInput onChangeText={(text) => handleInputChange('confrimPass', text)}
+                     onFocus={() => setError(prev => ({ ...prev, confrimPass: false }))}
+                     value={formData.confrimPass}
+                     style={styles.input}
+                     placeholder='Confrim Password'
+                     secureTextEntry={true}
+                  /></>) : null}
+
+               <View style={styles.termsCondition}>
+                  <View style={styles.checkboxContainer}>
+                     <TouchableOpacity onPress={handleCheckBox}>
+                        <View style={[styles.checkBox, isChecked && styles.active]}></View>
+                     </TouchableOpacity>
+                     <Text style={styles.termsText}>Accept Terms And Conditions</Text>
+                  </View>
+
+                  <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+                     <Text style={styles.text}>{showLogin}</Text>
                   </TouchableOpacity>
-                  <Text style={styles.termsText}>Accept Terms And Conditions</Text>
-               </View>
 
-               <TouchableOpacity style={styles.btn}>
-                  <Text style={styles.text}>{showLogin}</Text>
-               </TouchableOpacity>
-
-               <View>
-                  {showLogin === "Sign up" ? <Text style={styles.text}>Already have an account ? <Text style={styles.termsText} onPress={() => SetShowLogin("Login")}>Login here</Text></Text> :
-                     <Text style={styles.text}>Create new an account ? <Text style={styles.termsText} onPress={() => SetShowLogin("Sign up")}>Click here</Text></Text>}
+                  <View>
+                     {showLogin === "Sign up" ? <Text style={styles.text}>Already have an account ? <Text style={styles.termsText} onPress={() => SetShowLogin("Login")}>Login here</Text></Text> :
+                        <Text style={styles.text}>Create new an account ? <Text style={styles.termsText} onPress={() => SetShowLogin("Sign up")}>Click here</Text></Text>}
+                  </View>
                </View>
             </View>
-         </View>
-      </LinearGradient>
+         </LinearGradient>
+      </KeyboardAvoidingView>
    );
 };
 
@@ -75,12 +226,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
    },
    container: {
-      padding: 30,
+      padding: 20,
       backgroundColor: "#CFA96E",
       borderRadius: 16,
       borderWidth: 1,
       borderColor: 'black',
       width: '90%',
+      position: 'absolute',
+      top: 120,
+
    },
    heading: {
       fontSize: 20,
@@ -96,11 +250,11 @@ const styles = StyleSheet.create({
    input: {
       fontFamily: 'outfit',
       backgroundColor: Colors.LIGHTORANGE,
-      fontSize: 15,
+      fontSize: 14,
       padding: 8,
       borderRadius: 10,
       borderWidth: 0.3,
-      marginBottom: 20,
+      marginBottom: 16,
    },
    termsCondition: {
       display: 'flex',
@@ -135,5 +289,9 @@ const styles = StyleSheet.create({
    termsText: {
       fontFamily: 'outfit',
       color: "#56A5A8",
+   },
+   errorText: {
+      color: 'red',
+      fontFamily: 'outfit',
    },
 });
