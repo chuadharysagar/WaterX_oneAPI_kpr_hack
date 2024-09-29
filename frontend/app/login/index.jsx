@@ -31,7 +31,7 @@ const WelcomePage = () => {
                <SildeShow></SildeShow>
                </View>
                <Pressable 
-                onPress={()=>router.push('/login/loginpage')}
+                onPress={()=>router.push('/login/login')}
                style={{
                   padding: 14,
                   width: '90%',
