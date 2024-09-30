@@ -1,45 +1,20 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
 import Colors from './../../constants/Colors';
+import { AppContext } from './../../context/AppContext'
+import { router, useRouter } from 'expo-router';
 
 const Login = () => {
 
-   const [formData, SetFormData] = useState({
-      name: '',
-      email: '',
-      region: '',
-      password: '',
-      confrimPass: '',
-   })
+   const { formData, SetFormData, validateEmail, validatePassword, comparePassword } = useContext(AppContext)
+   const { error, setError } = useContext(AppContext);
 
-   const [error, setError] = useState({
-      name: false,
-      email: false,
-      region: false,
-      password: false,
-      confrimPass: false,
-   })
+   const router = useRouter();
 
    const handleInputChange = (feild, value) => {
       SetFormData({ ...formData, [feild]: value })
-   }
-
-   //email validator
-   const validateEmail = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-   };
-
-
-   // password validator
-   const comparePassword = (password, confoPass) => {
-      return password === confoPass;
-   }
-
-   const validatePassword = (password) => {
-      return password.length >= 8;
    }
 
    const handleSubmit = () => {
@@ -52,6 +27,7 @@ const Login = () => {
          confrimPass: false,
       };
 
+
       Object.keys(formData).forEach((feild) => {
          if (formData[feild] === '') {
             newError[feild] = true;
@@ -62,12 +38,12 @@ const Login = () => {
       })
 
       if (formData.email === '') {
-         newError.email = " Email is Required";
+         newError.email = " Email Or Mobile Number is Required";
          hasError = true;
       }
       else if (!validateEmail(formData.email)) {
          hasError = true;
-         newError.email = "Invalied Email";
+         newError.email = "Invalied Email Or Mobile Number";
       } else {
          newError.email = false;
       }
@@ -93,10 +69,8 @@ const Login = () => {
          newError.confrimPass = false;
       }
 
-      setError(newError)
-
       if (!hasError) {
-
+         router.replace('/home')
       }
       setError(newError)
    }
@@ -156,7 +130,7 @@ const Login = () => {
                ) : null}
 
 
-               {error.email && <Text style={styles.errorText}>{error.email}</Text>}
+               {error.email && showLogin === "Sign up" && <Text style={styles.errorText}>{error.email}</Text>}
                <TextInput
                   onChangeText={(text) => handleInputChange('email', text)}
                   onFocus={() => setError(prev => ({ ...prev, email: false }))}
@@ -174,7 +148,7 @@ const Login = () => {
                      placeholder='State or Region' /></>) : <></>}
 
 
-               {error.password && <Text style={styles.errorText}>{error.password}</Text>}
+               {error.password && showLogin === 'Sign up' && <Text style={styles.errorText}>{error.password}</Text>}
                <TextInput
                   onChangeText={(text) => handleInputChange('password', text)}
                   onFocus={() => setError(prev => ({ ...prev, password: false }))}
@@ -202,7 +176,7 @@ const Login = () => {
                      <Text style={styles.termsText}>Accept Terms And Conditions</Text>
                   </View>
 
-                  <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+                  <TouchableOpacity style={styles.btn} onPress={showLogin === 'Sign up' ? handleSubmit : () => router.replace('/home')}>
                      <Text style={styles.text}>{showLogin}</Text>
                   </TouchableOpacity>
 
