@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View ,TextInput} from 'react-native'
+import ChatUI from '../../components/Chatbot/ChatUI'
 import React from 'react'
 
 const chatbot = () => {
   return (
-    <View>
-      <Text>chatbot</Text>
+    <View style={{flex:1}}>
+      <ChatUI/>
     </View>
   )
 }

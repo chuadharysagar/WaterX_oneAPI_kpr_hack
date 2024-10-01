@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useState, useEffect } from 'react';
 import Colors from './../../constants/Colors';
 import { AppContext } from './../../context/AppContext'
-import { router, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 const Login = () => {
 

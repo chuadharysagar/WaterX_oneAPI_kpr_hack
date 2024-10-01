@@ -40,6 +40,14 @@ const AppContextProvider = (props) => {
    };
 
 
+   // for the video container 
+   const videoData = [
+      { id: '1', uri: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+      { id: '2', uri: 'https://www.w3schools.com/html/movie.mp4' },
+      { id: '3', uri: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+      { id: '4', uri: 'https://www.w3schools.com/html/movie.mp4' },
+   ];
+
 
    const contextValue = {
       categoryFilter,
@@ -50,6 +58,7 @@ const AppContextProvider = (props) => {
       comparePassword,
       validatePassword,
       validateEmail,
+      videoData,
 
    }
 

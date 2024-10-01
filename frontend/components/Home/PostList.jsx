@@ -14,6 +14,7 @@ const PostList = () => {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View style={styles.postCard}>
+
             {/* User Info */}
             <View style={styles.postUserNameContainer}>
               <Image
