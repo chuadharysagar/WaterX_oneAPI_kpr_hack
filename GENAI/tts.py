@@ -3,7 +3,7 @@ import os
 import time
 import playsound
 
-
+## used google text to speech model
 class TTS:
     def __init__(self, ans, lang='en'):
         self.ans = ans
