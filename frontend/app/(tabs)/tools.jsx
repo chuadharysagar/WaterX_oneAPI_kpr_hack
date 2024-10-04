@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import WaterCalculator from '../../components/Calculator/WaterCalculator'
 
 const tools = () => {
   return (
-    <View>
-      <Text>tools</Text>
+    <View style={{
+      flex:1,
+    }}>
+      <WaterCalculator/>
     </View>
   )
 }

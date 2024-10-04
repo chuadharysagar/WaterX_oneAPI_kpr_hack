@@ -8,7 +8,8 @@ const tutorials = () => {
          flex: 1,
          backgroundColor: "#fff",
       }}>
-         <VideoList></VideoList>
+         <Text>Vidoes</Text>
+         {/* <VideoList></VideoList> */}
       </View>
    )
 }
