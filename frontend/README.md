@@ -1,50 +1,77 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# WaterX App
 
-## Get started
+**WaterX** is a digital knowledge-sharing platform designed to promote water-efficient techniques and methods to combat water scarcity. It empowers users to explore, contribute, and learn about sustainable water-saving practices through an intuitive and user-friendly interface. This platform includes a variety of features such as access to articles, community discussions, case studies, interactive tools, and much more.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- **Knowledge Repository**: Access a wide range of articles, guides, and tutorials on water-efficient practices.
+- **Community Forum**: Engage with other users, ask questions, share insights, and discuss water conservation techniques.
+- **Interactive Tools**: Calculate your water usage and discover areas where you can save water.
+- **Contribute Your Knowledge**: Submit your own research, case studies, or success stories to the platform.
+- **Mobile and Web Accessibility**: Optimized for both mobile and web platforms, ensuring ease of use anywhere.
+- **Social Sharing**: Share useful techniques, articles, and case studies with others through integrated social media options.
 
-2. Start the app
+## Setup Instructions
 
-   ```bash
-    npx expo start
-   ```
+### Prerequisites
 
-In the output, you'll find options to open the app in a
+- **Node.js**: Ensure you have Node.js installed. You can download it from [here](https://nodejs.org/).
+- **Expo CLI**: You will need Expo CLI for running the app. Install it globally using:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+```
+npm install -g expo-cli
+```
+### Before Running App make sure to install following dependencies
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+This project uses the following major libraries:
 
-## Get a fresh project
+- **React Native**: `react-native@0.74.5` for building mobile applications.
+- **Expo**: `expo@~51.0.28` for setting up the app development environment.
+- **React Navigation**: `@react-navigation/native@^6.1.18` for navigation and stack management.
+- **Swiper**: `swiper@^11.1.14` and `react-native-swiper@^1.6.0` for creating carousel-style sliders.
+- **React Native Linear Gradient**: `react-native-linear-gradient@^2.8.3` for creating smooth gradients in the UI.
+- **Expo Router**: `expo-router@~3.5.23` for handling routing in the app.
 
-When you're ready, run:
+## Steps to Setup the Project
+### Step 1: Clone the repository
+```
+git clone https://github.com/your-username/waterx-app.git   
 
-```bash
-npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Step 2: Navigate to the project directory
+```
+cd waterx-app
+```
 
-## Learn more
+### Step 3: Install dependencies
+```
+npm install
+```
+### Step 4: Run the app
 
-To learn more about developing your project with Expo, look at the following resources:
+### For development on Android
+```
+npm run android
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### For development on iOS
+```
+npm run ios
+```
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### For web development
+```
+npm run web
+```
+## NOTE
+If your are using Expo go app then run the project by switch to Frontend
+```
+cd fronted
+ ```
+Then Run the command
+```
+npm start
+```
+You will get a QR code on your Vs code Terminal Scan it with Expo go app in your Mobile  Now you can see your app running. 
