@@ -12,7 +12,7 @@ The frontend of **WaterX** is a responsive, user-friendly application built usin
 - **Contributions**: Users can submit articles, tips, and case studies.
 
 ## Tech Stack
-- ** React Native
-- ** Node JS
-- ** Flask
-- ** Python
+- **React Native
+- **Node JS
+- **Flask
+- **Python
