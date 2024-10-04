@@ -16,6 +16,7 @@ load_dotenv('backend/.env')
 
 app = Flask(__name__)
 
+
 class WaterXChatBot:
     def __init__(self):  # Corrected method name
         self.dataset = "waterx_agr.pdf"
@@ -104,5 +105,6 @@ def chat():
 def home():
     return jsonify({'message': 'WaterX Chatbot API is running'}), 200
 
-if __name__ == '__main__':  # Corrected entry point
-    app.run(debug=True, port=5000)
+if __name__ == '__main__':
+    app.run(debug=True, port=5000, host='0.0.0.0')
+
