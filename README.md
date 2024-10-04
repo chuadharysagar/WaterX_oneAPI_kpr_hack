@@ -24,8 +24,8 @@ https://www.canva.com/design/DAGSh6PKhxg/mhgW70EmbJaT8Opy0hXySg/edit?utm_content
 '''
 
 ## Tech Stack
-- ** React Native
-- ** Node JS
-- ** Flask
-- ** Python
+- **React Native
+- **Node JS
+- **Flask
+- **Python
 
