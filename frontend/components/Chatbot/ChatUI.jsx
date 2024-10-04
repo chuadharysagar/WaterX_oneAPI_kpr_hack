@@ -1,4 +1,5 @@
-import React, { useState, useRef, } from 'react';
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import {
    View,
    Text,
@@ -8,16 +9,16 @@ import {
    StyleSheet,
    KeyboardAvoidingView,
    Platform,
-   SafeAreaView,
 } from 'react-native';
-import Colors from './../../constants/Colors'
+import Colors from './../../constants/Colors';
 
 const ChatUI = () => {
    const [messages, setMessages] = useState([]);
    const [inputText, setInputText] = useState('');
+
    const flatListRef = useRef(null);
 
-   const handleSend = () => {
+   const handleSend = async () => {
       if (inputText.trim()) {
          // Add user message
          const userMessage = {
@@ -25,19 +26,27 @@ const ChatUI = () => {
             text: inputText.trim(),
             isUser: true,
          };
-
+   
          setMessages([...messages, userMessage]);
-
-         // Simulate bot response
-         setTimeout(() => {
+   
+         // Send inputText to backend using Axios
+         try {
+            const response = await axios.post('http://172.168.67.188:5000/api/chat', {
+               question: inputText.trim(),
+            });
+            
+            // Simulate bot response with data from backend
             const botMessage = {
                id: (messages.length + 1).toString(),
-               text: `This is a response to: ${inputText}`,
+               text: response.data.response || `Bot reply to: ${inputText}`,
                isUser: false,
             };
             setMessages(prevMessages => [...prevMessages, botMessage]);
-         }, 1000);
-
+         } catch (error) {
+            console.error('Error sending message to backend:', error);
+         }
+   
+         // Clear input field
          setInputText('');
       }
    };
@@ -52,37 +61,37 @@ const ChatUI = () => {
    );
 
    return (
-         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-         >
-            <View style={styles.headerContainer}>
-               <Text style={styles.headerText}>WaterX</Text>
-            </View>
-            <FlatList
-               ref={flatListRef}
-               data={messages}
-               renderItem={renderMessage}
-               keyExtractor={item => item.id}
-               contentContainerStyle={styles.messageList}
-               onContentSizeChange={() => flatListRef.current.scrollToEnd()}
+      <KeyboardAvoidingView
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         style={styles.container}
+      >
+         <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>WaterX</Text>
+         </View>
+         <FlatList
+            ref={flatListRef}
+            data={messages}
+            renderItem={renderMessage}
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.messageList}
+            onContentSizeChange={() => flatListRef.current.scrollToEnd()}
+         />
+         <View style={styles.inputContainer}>
+            <TextInput
+               style={styles.input}
+               value={inputText}
+               onChangeText={setInputText}
+               placeholder="Type a message..."
+               placeholderTextColor="#666"
             />
-            <View style={styles.inputContainer}>
-               <TextInput
-                  style={styles.input}
-                  value={inputText}
-                  onChangeText={setInputText}
-                  placeholder="Type a message..."
-                  placeholderTextColor="#666"
-               />
-               <TouchableOpacity
-                  style={styles.sendButton}
-                  onPress={handleSend}
-               >
-                  <Text style={styles.sendButtonText}>Send</Text>
-               </TouchableOpacity>
-            </View>
-         </KeyboardAvoidingView>
+            <TouchableOpacity
+               style={styles.sendButton}
+               onPress={handleSend}
+            >
+               <Text style={styles.sendButtonText}>Send</Text>
+            </TouchableOpacity>
+         </View>
+      </KeyboardAvoidingView>
    );
 };
 
@@ -98,9 +107,9 @@ const styles = StyleSheet.create({
       borderBottomColor: '#ccc',
    },
    headerText: {
-      fontFamily:'outfit-bold',
-      fontSize:20,
-      paddingTop:20,
+      fontFamily: 'outfit-bold',
+      fontSize: 20,
+      paddingTop: 20,
    },
    messageList: {
       paddingVertical: 10,
@@ -113,12 +122,10 @@ const styles = StyleSheet.create({
       marginBottom: 10,
    },
    userMessage: {
-      fontFamily: 'outfit',
       alignSelf: 'flex-end',
       backgroundColor: Colors.PRIMARY,
    },
    botMessage: {
-      fontFamily: 'outfit',
       alignSelf: 'flex-start',
       backgroundColor: '#B7B2B2',
    },
@@ -129,12 +136,11 @@ const styles = StyleSheet.create({
    inputContainer: {
       flexDirection: 'row',
       padding: 10,
-      backgroundColor: "#4682B4 ",
+      backgroundColor: "#4682B4",
       borderTopWidth: 1,
       borderTopColor: '#E5E5EA',
    },
    input: {
-      fontFamily: 'outfit',
       flex: 1,
       backgroundColor: '#F2F2F7',
       borderRadius: 20,
@@ -144,7 +150,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
    },
    sendButton: {
-      fontFamily: 'outfit',
       backgroundColor: Colors.PRIMARY,
       borderRadius: 20,
       paddingHorizontal: 20,
