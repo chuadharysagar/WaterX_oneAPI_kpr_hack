@@ -14,7 +14,7 @@ load_dotenv()
 
 class WaterXChatBot:
     def __init__(self, inp):
-        self.dataset = "waterx_agr.pdf"
+        self.dataset = "waterx_dataset.pdf"
         self.inp = inp
         self.groq_api_key = os.getenv('GROQ_API_KEY')
 
