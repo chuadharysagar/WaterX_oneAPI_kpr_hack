@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-
+import CommunityForum from '../../components/Community/CominityForum'
 const community = () => {
-  return (
-    <View>
-      <Text>community</Text>
-    </View>
-  )
+   return (
+      <View style={{
+         flex: 1,
+      }}>
+      <CommunityForum></CommunityForum>
+      </View>
+   )
 }
 
 export default community
