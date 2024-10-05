@@ -35,6 +35,7 @@ https://www.canva.com/design/DAGSh6PKhxg/mhgW70EmbJaT8Opy0hXySg/edit?utm_content
 - Node JS
 - Flask
 - Python
+- LLM Models : llama3-8b-8192 model
 
 
 # WaterX ChatBot API Integration
