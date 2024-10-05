@@ -25,6 +25,11 @@ https://www.figma.com/design/SDZ6qKji4aRaf0bMaaMwzE/WaterX?node-id=0-1&t=nU0OOff
 https://www.canva.com/design/DAGSh6PKhxg/mhgW70EmbJaT8Opy0hXySg/edit?utm_content=DAGSh6PKhxg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 '''
 
+## Process Flow
+
+![WhatsApp Image 2024-10-05 at 06 24 07_08620a0a](https://github.com/user-attachments/assets/e32d336e-03e2-410d-b345-ce8a0175d0f3)
+
+
 ## Tech Stack
 - React Native
 - Node JS
