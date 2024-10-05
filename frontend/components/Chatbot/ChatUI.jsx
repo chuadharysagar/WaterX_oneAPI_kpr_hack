@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
    },
    botMessage: {
       alignSelf: 'flex-start',
-      backgroundColor: '#B7B2B2',
+      backgroundColor:'#B7B2B2',
    },
    messageText: {
       fontSize: 16,
